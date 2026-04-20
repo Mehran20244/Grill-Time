@@ -6,67 +6,21 @@
 <title>Grill Time</title>
 
 <style>
-body {
-  margin:0;
-  font-family: Arial;
-  background:#111;
-  color:white;
-}
-
-header {
-  text-align:center;
-  padding:40px 20px;
-}
-
-h1 {font-size:40px; letter-spacing:2px;}
-
-.buttons {
-  margin:20px;
-}
-
-button {
-  padding:12px 20px;
-  margin:5px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.gold {background:gold; color:black;}
-.dark {background:#222; color:white;}
-
-section {
-  padding:40px 20px;
-}
-
-.menu-category {
-  margin-bottom:40px;
-}
-
-.menu-item {
-  background:#1b1b1b;
-  margin:10px auto;
-  padding:15px;
-  max-width:400px;
-  border-radius:10px;
-}
-
-.menu-item img {
-  width:100%;
-  border-radius:10px;
-}
-
-.price {
-  color:gold;
-}
-
-footer {
-  text-align:center;
-  padding:20px;
-  border-top:1px solid #333;
-}
+body{margin:0;font-family:Arial;background:#0b0b0b;color:white;}
+header{text-align:center;padding:60px 20px;background:#111;}
+h1{font-size:42px;letter-spacing:3px;}
+.btn{padding:14px 20px;margin:5px;border:none;border-radius:10px;cursor:pointer;font-size:16px;}
+.gold{background:#d4af37;color:black;}
+.dark{background:#222;color:white;}
+section{padding:50px 20px;}
+.menu-category{margin-bottom:50px;}
+.menu-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;}
+.menu-item{background:#1a1a1a;width:280px;border-radius:15px;overflow:hidden;}
+.menu-item img{width:100%;height:180px;object-fit:cover;}
+.menu-content{padding:15px;}
+.price{color:#d4af37;font-weight:bold;}
+footer{text-align:center;padding:20px;border-top:1px solid #333;}
 </style>
-
 </head>
 
 <body>
@@ -75,103 +29,100 @@ footer {
 <h1>GRILL TIME</h1>
 <p>Fast service, premium taste</p>
 
-<div class="buttons">
-<a href="tel:+32490396181"><button class="gold">Call Now</button></a>
-<a href="#menu"><button class="dark">View Menu</button></a>
+<a href="tel:+32490396181"><button class="btn gold">Call Now</button></a>
+<a href="#menu"><button class="btn dark">View Menu</button></a>
 <a href="https://www.google.com/maps/search/?api=1&query=Oostende" target="_blank">
-<button class="dark">Directions</button>
+<button class="btn dark">Directions</button>
 </a>
-</div>
 </header>
 
 <section id="menu">
 
-<h2 style="text-align:center;">Menu</h2>
+<h2 style="text-align:center;">🔥 Our Menu</h2>
 
 <!-- BURGERS -->
 <div class="menu-category">
 <h3>Burgers</h3>
+<div class="menu-grid">
 
 <div class="menu-item">
 <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd">
+<div class="menu-content">
 <h4>House Burger</h4>
-<p>Beef, cheese, sauce</p>
+<p>Beef, cheese, house sauce</p>
 <p class="price">€10</p>
+</div>
 </div>
 
 <div class="menu-item">
 <img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+<div class="menu-content">
 <h4>Double Burger</h4>
 <p>Double beef, extra cheese</p>
 <p class="price">€13</p>
 </div>
+</div>
 
+</div>
 </div>
 
 <!-- WRAPS -->
 <div class="menu-category">
 <h3>Wraps</h3>
+<div class="menu-grid">
 
 <div class="menu-item">
 <img src="https://images.unsplash.com/photo-1604908176997-431a57c7c10f">
+<div class="menu-content">
 <h4>Chicken Wrap</h4>
-<p>Crispy chicken & veggies</p>
+<p>Crispy chicken, veggies</p>
 <p class="price">€9</p>
+</div>
 </div>
 
 <div class="menu-item">
 <img src="https://images.unsplash.com/photo-1625944525533-473f1e6bb4f0">
+<div class="menu-content">
 <h4>Veggie Wrap</h4>
 <p>Fresh vegetables</p>
 <p class="price">€10</p>
 </div>
+</div>
 
+</div>
 </div>
 
 <!-- PIZZA -->
 <div class="menu-category">
 <h3>Pizza</h3>
+<div class="menu-grid">
 
 <div class="menu-item">
 <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591">
+<div class="menu-content">
 <h4>Margherita</h4>
-<p>Classic cheese</p>
+<p>Classic cheese pizza</p>
 <p class="price">€12</p>
+</div>
 </div>
 
 <div class="menu-item">
 <img src="https://images.unsplash.com/photo-1548365328-9f547fb0953d">
+<div class="menu-content">
 <h4>Pepperoni</h4>
 <p>Pepperoni & cheese</p>
 <p class="price">€15</p>
 </div>
-
 </div>
 
-<!-- SIDES -->
-<div class="menu-category">
-<h3>Sides</h3>
-
-<div class="menu-item">
-<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
-<h4>Fries</h4>
-<p>Classic fries</p>
-<p class="price">€3</p>
 </div>
-
-<div class="menu-item">
-<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
-<h4>Nuggets</h4>
-<p>Chicken nuggets</p>
-<p class="price">€6</p>
-</div>
-
 </div>
 
 </section>
 
 <footer>
-<p>Oostende | +32 490 39 61 81</p>
+<p>Albert I Promenade 9 - Oostende</p>
+<p>📞 +32 490 39 61 81</p>
 </footer>
 
 </body>
