@@ -1,69 +1,375 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grill Time</title>
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #111;
-  color: white;
-  text-align: center;
-}
-.hero {
-  padding: 60px 20px;
-}
-h1 {
-  font-size: 40px;
-}
-button {
-  margin: 10px;
-  padding: 15px 25px;
-  border: none;
-  border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
-}
-.gold {
-  background: #d4af37;
-  color: black;
-}
-.dark {
-  background: #222;
-  color: white;
-}
-</style>
-</head>
+import { motion } from "framer-motion";
+import { Flame, MapPin, Phone, Clock3, Star, ChevronRight } from "lucide-react";
 
-<body>
+const chefsPicks = [
+  {
+    title: "Signature Mixed Grill Plate",
+    en: "Grilled mix of chicken & beef, served with fries and house sauce.",
+    nl: "Gegrilde mix van kip en rundvlees, geserveerd met friet en huisgemaakte saus.",
+    price: "19.00",
+  },
+  {
+    title: "Crispy Chicken Wrap",
+    en: "Crispy chicken, fresh veggies and creamy sauce.",
+    nl: "Krokante kip, verse groenten en romige saus.",
+    price: "9.00",
+  },
+  {
+    title: "Ultimate Kapsalon",
+    en: "Fries topped with meat, melted cheese, salad and special sauce.",
+    nl: "Friet met vlees, gesmolten kaas, salade en speciale saus.",
+    price: "11.00",
+  },
+];
 
-<div class="hero">
-  <h1>GRILL TIME</h1>
-  <p>Fast service, premium taste</p>
+const categories = [
+  {
+    name: "Wraps",
+    items: [
+      { name: "Classic Kebab Wrap", price: "9.00" },
+      { name: "Crispy Chicken Wrap", price: "9.00" },
+      { name: "Spicy Mix Wrap", price: "10.00" },
+      { name: "Feta Veggie Wrap", price: "10.00" },
+      { name: "Hawaiian Chicken Wrap", price: "10.00" },
+    ],
+  },
+  {
+    name: "Burgers",
+    items: [
+      { name: "House Smashed Burger", price: "10.00" },
+      { name: "Signature Beef Burger", price: "10.00" },
+      { name: "Cheesy Chicken Burger", price: "10.50" },
+      { name: "Double Smash Burger", price: "13.00" },
+      { name: "Spicy Crunch Burger", price: "10.50" },
+    ],
+  },
+  {
+    name: "Grill Plates",
+    items: [
+      { name: "Mixed Grill Plate", price: "19.00" },
+      { name: "Chicken Grill Plate", price: "17.00" },
+      { name: "Kebab Deluxe Plate", price: "17.00" },
+      { name: "Spicy Lamb Plate", price: "20.00" },
+      { name: "Gegrilde Garnalen Deluxe", price: "25.00" },
+    ],
+  },
+  {
+    name: "Pizza",
+    items: [
+      { name: "Margherita", price: "12.00" },
+      { name: "Pepperoni", price: "14.00" },
+      { name: "Chicken Supreme", price: "15.00" },
+      { name: "Garnalen Deluxe Pizza", price: "18.00" },
+      { name: "Veggie Delight", price: "14.00" },
+    ],
+  },
+  {
+    name: "Sides",
+    items: [
+      { name: "Ultimate Kapsalon", price: "11.00" },
+      { name: "Loaded Fries", price: "6.50" },
+      { name: "Cheesy Fries", price: "6.50" },
+      { name: "Chicken Nuggets", price: "6.00" },
+      { name: "Calamari Bites", price: "8.50" },
+    ],
+  },
+];
 
-  <button class="gold">Call Now</button>
-  <button class="gold">Order</button>
-  <button class="dark">View Menu</button>
-</div>
-<div class="menu">
-  <h2>Menu</h2>
+const drinks = [
+  { title: "Golden Mint Lemonade", sub: "Fresh lemonade with mint · Verse limonade met munt", price: "4.50" },
+  { title: "Sunny Orange Juice", sub: "Fresh orange juice · Vers sinaasappelsap", price: "4.50" },
+  { title: "Mango Bliss", sub: "Smooth and refreshing mango drink", price: "3.50" },
+  { title: "Tropical Mix", sub: "Exotic fruit blend, sweet and fresh", price: "4.00" },
+  { title: "Coca-Cola / Zero / Fanta / Sprite", sub: "Classic soft drinks", price: "2.50" },
+  { title: "Still / Sparkling Water", sub: "Water selection", price: "2.50" },
+];
 
-  <div class="item">
-    <img src="https://via.placeholder.com/150" alt="Burger">
-    <h3>Burger</h3>
-    <p>€8</p>
-    <button>Order</button>
-  </div>
+export default function GrillTimeLuxuryHomepage() {
+  const heroImage = "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1400&q=80";
+  const featureImages = [
+    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80",
+  ];
 
-  <div class="item">
-    <img src="https://via.placeholder.com/150" alt="Pizza">
-    <h3>Pizza</h3>
-    <p>€10</p>
-    <button>Order</button>
-  </div>
+  return (
+    <div className="min-h-screen bg-[#0b0b0b] text-white">
+      <section className="relative overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0">
+          <img src={heroImage} alt="Luxury grill food" className="h-full w-full object-cover opacity-25" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,11,11,0.95)_0%,rgba(11,11,11,0.82)_45%,rgba(11,11,11,0.7)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,169,110,0.22),transparent_35%)]" />
+        </div>
 
-</div>
-</body>
-</html>
+        <div className="relative mx-auto max-w-7xl px-6 py-8 md:px-10">
+          <nav className="flex items-center justify-between rounded-full border border-white/10 bg-black/30 px-5 py-3 backdrop-blur-md">
+            <div>
+              <div className="text-lg font-semibold tracking-[0.28em]">GRILL TIME</div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-white/45">Premium Grill & Street Food</div>
+            </div>
+            <div className="hidden items-center gap-8 text-sm text-white/75 md:flex">
+              <a href="#menu" className="hover:text-[#c9a96e]">Menu</a>
+              <a href="#drinks" className="hover:text-[#c9a96e]">Drinks</a>
+              <a href="#about" className="hover:text-[#c9a96e]">About</a>
+              <a href="#contact" className="hover:text-[#c9a96e]">Contact</a>
+            </div>
+            <button className="rounded-full bg-[#c9a96e] px-4 py-2 text-sm font-medium text-black">Order Now</button>
+          </nav>
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-10 md:px-10 md:pb-28 md:pt-16">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#c9a96e]/30 bg-[#c9a96e]/10 px-4 py-2 text-xs uppercase tracking-[0.3em] text-[#d7bb87]">
+                <Flame className="h-3.5 w-3.5" /> Luxury Fast Casual Experience
+              </p>
+              <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[0.12em] md:text-7xl">
+                Grill Bold. <span className="text-[#c9a96e]">Serve Premium.</span>
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-white/72">
+                House made burgers, premium grill plates, signature wraps and branded drinks — all presented in a clean, elevated way that feels modern and ready to order.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-4">
+                <button className="rounded-2xl bg-[#c9a96e] px-6 py-3 text-sm font-medium text-black shadow-[0_12px_40px_rgba(201,169,110,0.22)] transition hover:opacity-90">Order Online</button>
+                <button className="rounded-2xl border border-white/15 px-6 py-3 text-sm font-medium text-white transition hover:border-[#c9a96e] hover:text-[#c9a96e]">View Menu</button>
+              </div>
+              <div className="mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
+                {[
+                  ["House Made", "Burgers grilled to order"],
+                  ["Chef Curated", "Short menu, stronger choices"],
+                  ["Takeaway Ready", "Fast service, premium taste"],
+                ].map(([a, b]) => (
+                  <div key={a} className="rounded-2xl border border-white/10 bg-black/30 p-4 backdrop-blur-sm">
+                    <p className="text-sm font-semibold text-white">{a}</p>
+                    <p className="mt-2 text-sm leading-6 text-white/60">{b}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="relative">
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-[#c9a96e]/15 blur-3xl" />
+              <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/35 shadow-2xl backdrop-blur-md">
+                <img src={featureImages[0]} alt="Featured dish" className="h-[520px] w-full object-cover" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.2)_40%,rgba(0,0,0,0.82)_100%)]" />
+                <div className="absolute inset-x-0 bottom-0 p-7">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/35 px-3 py-2 text-sm text-white/80 backdrop-blur-md">
+                    <Star className="h-4 w-4 text-[#c9a96e]" /> Featured Item
+                  </div>
+                  <h3 className="text-3xl font-semibold">Ultimate Kapsalon</h3>
+                  <p className="mt-3 max-w-md text-sm leading-7 text-white/75">
+                    Fries topped with meat, melted cheese, salad and special sauce.
+                  </p>
+                  <div className="mt-5 flex items-center justify-between">
+                    <span className="rounded-full border border-[#c9a96e]/30 bg-[#c9a96e]/10 px-4 py-2 text-sm text-[#e2c891]">€ 11.00</span>
+                    <button className="rounded-full bg-[#c9a96e] p-3 text-black">
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              title: "House Smashed Burger",
+              text: "Fresh smashed beef, cheese and house sauce",
+              price: "10.00",
+              image: featureImages[0],
+            },
+            {
+              title: "Signature Mixed Grill Plate",
+              text: "Grilled mix of chicken & beef, served with fries and house sauce",
+              price: "19.00",
+              image: featureImages[1],
+            },
+            {
+              title: "Garnalen Deluxe Pizza",
+              text: "Shrimp with garlic butter and melted cheese",
+              price: "18.00",
+              image: featureImages[2],
+            },
+          ].map((card, index) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08, duration: 0.45 }}
+              className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5"
+            >
+              <img src={card.image} alt={card.title} className="h-56 w-full object-cover" />
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-2xl font-semibold">{card.title}</h3>
+                  <span className="rounded-full border border-[#c9a96e]/30 bg-[#c9a96e]/10 px-3 py-1 text-sm text-[#d5b97f]">€ {card.price}</span>
+                </div>
+                <p className="mt-3 leading-7 text-white/65">{card.text}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10" id="menu">
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-[#c9a96e]">Featured Selection</p>
+            <h2 className="mt-3 text-3xl font-semibold md:text-5xl">Chef’s Picks</h2>
+          </div>
+          <p className="max-w-xl text-white/60">A shorter, premium selection that keeps the menu clean and guides guests toward your strongest items.</p>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-3">
+          {chefsPicks.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08, duration: 0.45 }}
+              className="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-sm"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="text-2xl font-semibold">{item.title}</h3>
+                <span className="rounded-full border border-[#c9a96e]/30 bg-[#c9a96e]/10 px-3 py-1 text-sm font-medium text-[#d5b97f]">€ {item.price}</span>
+              </div>
+              <p className="mt-4 leading-7 text-white/78">{item.en}</p>
+              <p className="mt-3 leading-7 text-white/48">{item.nl}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+        <div className="mb-10">
+          <p className="text-sm uppercase tracking-[0.3em] text-[#c9a96e]">Full Menu</p>
+          <h2 className="mt-3 text-3xl font-semibold md:text-5xl">Curated For Fast Choice</h2>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          {categories.map((group) => (
+            <div key={group.name} className="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/6 to-white/[0.03] p-8">
+              <div className="mb-6 flex items-center justify-between">
+                <h3 className="text-2xl font-semibold">{group.name}</h3>
+                <span className="rounded-full border border-[#c9a96e]/30 bg-[#c9a96e]/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#d5b97f]">Top 5</span>
+              </div>
+              <div className="space-y-4">
+                {group.items.map((item) => (
+                  <div key={item.name} className="flex items-center justify-between gap-4 border-b border-white/10 pb-4 last:border-none last:pb-0">
+                    <span className="text-white/80">{item.name}</span>
+                    <span className="whitespace-nowrap text-[#c9a96e]">€ {item.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10" id="drinks">
+        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
+            <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1200&q=80" alt="Signature drinks" className="h-80 w-full object-cover" />
+            <div className="p-8">
+              <p className="text-sm uppercase tracking-[0.3em] text-[#c9a96e]">Signature Drinks</p>
+              <h2 className="mt-3 text-3xl font-semibold md:text-5xl">Fresh. Premium. Branded.</h2>
+              <p className="mt-4 leading-8 text-white/68">Use a branded drink section to make even simple drinks look more valuable and memorable.</p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {drinks.map((drink) => (
+              <div key={drink.title} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-xl font-semibold">{drink.title}</h3>
+                  <span className="whitespace-nowrap rounded-full border border-[#c9a96e]/30 bg-[#c9a96e]/10 px-3 py-1 text-sm text-[#d5b97f]">€ {drink.price}</span>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-white/62">{drink.sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10" id="about">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(201,169,110,0.12),rgba(255,255,255,0.03))] p-8">
+            <p className="text-sm uppercase tracking-[0.3em] text-[#c9a96e]">About Grill Time</p>
+            <h2 className="mt-3 text-3xl font-semibold md:text-5xl">A Cleaner, Stronger Brand</h2>
+            <p className="mt-6 leading-8 text-white/72">
+              This concept uses a short menu, premium naming, and a dark luxury style to help your restaurant look more modern and feel more expensive without becoming confusing.
+            </p>
+            <div className="mt-8 grid gap-4">
+              {[
+                "Less menu clutter, faster customer decisions",
+                "Stronger product naming and higher perceived value",
+                "Luxury visuals with a takeaway-friendly structure",
+              ].map((point) => (
+                <div key={point} className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 text-white/78">{point}</div>
+              ))}
+            </div>
+          </div>
+          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80" alt="Restaurant interior" className="h-full min-h-[420px] w-full object-cover" />
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-10" id="contact">
+        <div className="overflow-hidden rounded-[2.25rem] border border-white/10 bg-white/5">
+          <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="border-b border-white/10 p-8 lg:border-b-0 lg:border-r">
+              <p className="text-sm uppercase tracking-[0.3em] text-[#c9a96e]">Visit & Order</p>
+              <h2 className="mt-3 text-3xl font-semibold md:text-5xl">Contact Grill Time</h2>
+              <div className="mt-8 space-y-4">
+                <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 p-4 text-white/75">
+                  <MapPin className="mt-1 h-5 w-5 text-[#c9a96e]" />
+                  <span>Albert I Promenade 9, 8400 Oostende</span>
+                </div>
+                <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 p-4 text-white/75">
+                  <Phone className="mt-1 h-5 w-5 text-[#c9a96e]" />
+                  <span>0490 39 61 81</span>
+                </div>
+                <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 p-4 text-white/75">
+                  <Clock3 className="mt-1 h-5 w-5 text-[#c9a96e]" />
+                  <span>Daily · 11:00 - 22:00</span>
+                </div>
+              </div>
+            </div>
+            <div className="relative min-h-[360px] overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80" alt="Grill food" className="h-full w-full object-cover opacity-35" />
+              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(11,11,11,0.78),rgba(11,11,11,0.5))]" />
+              <div className="relative flex h-full flex-col justify-between p-8 md:p-10">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-[#c9a96e]">Fast Action</p>
+                  <h3 className="mt-3 text-3xl font-semibold">Make ordering feel effortless</h3>
+                  <p className="mt-5 max-w-xl leading-8 text-white/68">
+                    This section should connect directly to your order platform, map location and phone line so customers can go from browsing to ordering without friction.
+                  </p>
+                </div>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <button className="rounded-2xl bg-[#c9a96e] px-6 py-3 text-sm font-medium text-black">Order Online</button>
+                  <button className="rounded-2xl border border-white/15 px-6 py-3 text-sm font-medium text-white hover:border-[#c9a96e] hover:text-[#c9a96e]">Get Directions</button>
+                  <button className="rounded-2xl border border-white/15 px-6 py-3 text-sm font-medium text-white hover:border-[#c9a96e] hover:text-[#c9a96e]">Call Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/10 px-6 py-8 md:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-lg font-semibold tracking-[0.28em] text-white">GRILL TIME</p>
+            <p className="mt-1 text-sm text-white/45">Premium Grill & Street Food</p>
+          </div>
+          <div className="text-sm text-white/45">Albert I Promenade 9 · Oostende · 0490 39 61 81</div>
+        </div>
+      </footer>
+    </div>
+  );
+}
