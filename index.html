@@ -7,38 +7,50 @@
 
 <style>
 body {
-    margin: 0;
-    font-family: Arial;
-    background: #111;
-    color: white;
-    text-align: center;
+  margin: 0;
+  font-family: Arial;
+  background: #0b0b0b;
+  color: white;
 }
 
-h1 { font-size: 40px; }
-
-.menu-section {
-    margin: 40px 20px;
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
-.item {
-    background: #222;
-    margin: 10px auto;
-    padding: 15px;
-    max-width: 400px;
-    border-radius: 10px;
-}
-
-.price {
-    color: gold;
+h1, h2, h3 {
+  text-align: center;
 }
 
 button {
-    padding: 10px 20px;
-    margin: 10px;
-    background: gold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  padding: 10px 20px;
+  background: gold;
+  border: none;
+  border-radius: 8px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.section {
+  margin-top: 50px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.price {
+  color: gold;
+  float: right;
+}
+
+img {
+  width: 100%;
+  border-radius: 12px;
 }
 </style>
 
@@ -46,62 +58,122 @@ button {
 
 <body>
 
+<div class="container">
+
 <h1>GRILL TIME</h1>
-<p>Premium Grill & Street Food</p>
+<p style="text-align:center;">Premium Grill & Street Food</p>
 
-<button onclick="alert('Call us!')">Call Now</button>
-<button onclick="alert('Order coming soon')">Order</button>
-
-<div class="menu-section">
-<h2>🔥 Burgers</h2>
-
-<div class="item">
-<h3>House Smashed Burger</h3>
-<p>Fresh smashed beef, cheese & sauce</p>
-<p class="price">€10.00</p>
+<div style="text-align:center;">
+<button>Order Online</button>
+<button onclick="scrollToMenu()">View Menu</button>
 </div>
 
-<div class="item">
-<h3>Double Smash Burger</h3>
-<p>Double meat, extra cheese</p>
-<p class="price">€13.00</p>
+<!-- HERO IMAGE -->
+<div class="section">
+<img src="https://images.unsplash.com/photo-1552566626-52f8b828add9" />
+</div>
+
+<!-- CHEF PICKS -->
+<div class="section">
+<h2>🔥 Chef Picks</h2>
+
+<div class="card">
+<span class="price">€19.00</span>
+<h3>Signature Mixed Grill Plate</h3>
+<p>Grilled mix of chicken & beef with fries and sauce</p>
+</div>
+
+<div class="card">
+<span class="price">€9.00</span>
+<h3>Crispy Chicken Wrap</h3>
+<p>Crispy chicken with fresh veggies</p>
+</div>
+
+<div class="card">
+<span class="price">€11.00</span>
+<h3>Ultimate Kapsalon</h3>
+<p>Fries + meat + cheese + sauce</p>
 </div>
 
 </div>
 
-<div class="menu-section">
+<!-- MENU -->
+<div class="section" id="menu">
+<h2>🍔 Burgers</h2>
+
+<div class="card">
+<span class="price">€10.00</span>
+House Smashed Burger
+</div>
+
+<div class="card">
+<span class="price">€13.00</span>
+Double Smash Burger
+</div>
+
 <h2>🌯 Wraps</h2>
 
-<div class="item">
-<h3>Chicken Wrap</h3>
-<p>Crispy chicken, fresh veggies</p>
-<p class="price">€9.00</p>
+<div class="card">
+<span class="price">€9.00</span>
+Classic Kebab Wrap
 </div>
 
-<div class="item">
-<h3>Veggie Wrap</h3>
-<p>Fresh vegetables & sauce</p>
-<p class="price">€10.00</p>
+<div class="card">
+<span class="price">€10.00</span>
+Spicy Mix Wrap
 </div>
 
-</div>
-
-<div class="menu-section">
 <h2>🍕 Pizza</h2>
 
-<div class="item">
-<h3>Margherita</h3>
-<p>Classic cheese pizza</p>
-<p class="price">€12.00</p>
+<div class="card">
+<span class="price">€12.00</span>
+Margherita
 </div>
 
-<div class="item">
-<h3>Pepperoni</h3>
-<p>Pepperoni & cheese</p>
-<p class="price">€15.00</p>
+<div class="card">
+<span class="price">€14.00</span>
+Pepperoni
+</div>
+
+<h2>🥤 Drinks</h2>
+
+<div class="card">
+<span class="price">€4.50</span>
+Golden Mint Lemonade
+</div>
+
+<div class="card">
+<span class="price">€2.50</span>
+Coca-Cola / Fanta
 </div>
 
 </div>
+
+<!-- CONTACT -->
+<div class="section">
+<h2>📍 Contact</h2>
+
+<div class="card">
+📍 Albert I Promenade 9, Oostende
+</div>
+
+<div class="card">
+📞 0490 39 61 81
+</div>
+
+<div class="card">
+🕒 11:00 - 22:00
+</div>
+
+</div>
+
+</div>
+
+<script>
+function scrollToMenu() {
+  document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+}
+</script>
 
 </body>
 </html>
