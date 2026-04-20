@@ -7,50 +7,63 @@
 
 <style>
 body {
-  margin: 0;
+  margin:0;
   font-family: Arial;
-  background: #0b0b0b;
-  color: white;
+  background:#111;
+  color:white;
 }
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+header {
+  text-align:center;
+  padding:40px 20px;
 }
 
-h1, h2, h3 {
-  text-align: center;
+h1 {font-size:40px; letter-spacing:2px;}
+
+.buttons {
+  margin:20px;
 }
 
 button {
-  padding: 10px 20px;
-  background: gold;
-  border: none;
-  border-radius: 8px;
-  margin: 5px;
-  cursor: pointer;
+  padding:12px 20px;
+  margin:5px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
 }
 
-.section {
-  margin-top: 50px;
+.gold {background:gold; color:black;}
+.dark {background:#222; color:white;}
+
+section {
+  padding:40px 20px;
 }
 
-.card {
-  background: #1a1a1a;
-  padding: 15px;
-  border-radius: 12px;
-  margin: 10px 0;
+.menu-category {
+  margin-bottom:40px;
+}
+
+.menu-item {
+  background:#1b1b1b;
+  margin:10px auto;
+  padding:15px;
+  max-width:400px;
+  border-radius:10px;
+}
+
+.menu-item img {
+  width:100%;
+  border-radius:10px;
 }
 
 .price {
-  color: gold;
-  float: right;
+  color:gold;
 }
 
-img {
-  width: 100%;
-  border-radius: 12px;
+footer {
+  text-align:center;
+  padding:20px;
+  border-top:1px solid #333;
 }
 </style>
 
@@ -58,122 +71,108 @@ img {
 
 <body>
 
-<div class="container">
-
+<header>
 <h1>GRILL TIME</h1>
-<p style="text-align:center;">Premium Grill & Street Food</p>
+<p>Fast service, premium taste</p>
 
-<div style="text-align:center;">
-<button>Order Online</button>
-<button onclick="scrollToMenu()">View Menu</button>
+<div class="buttons">
+<a href="tel:+32490396181"><button class="gold">Call Now</button></a>
+<a href="#menu"><button class="dark">View Menu</button></a>
+<a href="https://www.google.com/maps/search/?api=1&query=Oostende" target="_blank">
+<button class="dark">Directions</button>
+</a>
+</div>
+</header>
+
+<section id="menu">
+
+<h2 style="text-align:center;">Menu</h2>
+
+<!-- BURGERS -->
+<div class="menu-category">
+<h3>Burgers</h3>
+
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd">
+<h4>House Burger</h4>
+<p>Beef, cheese, sauce</p>
+<p class="price">€10</p>
 </div>
 
-<!-- HERO IMAGE -->
-<div class="section">
-<img src="https://images.unsplash.com/photo-1552566626-52f8b828add9" />
-</div>
-
-<!-- CHEF PICKS -->
-<div class="section">
-<h2>🔥 Chef Picks</h2>
-
-<div class="card">
-<span class="price">€19.00</span>
-<h3>Signature Mixed Grill Plate</h3>
-<p>Grilled mix of chicken & beef with fries and sauce</p>
-</div>
-
-<div class="card">
-<span class="price">€9.00</span>
-<h3>Crispy Chicken Wrap</h3>
-<p>Crispy chicken with fresh veggies</p>
-</div>
-
-<div class="card">
-<span class="price">€11.00</span>
-<h3>Ultimate Kapsalon</h3>
-<p>Fries + meat + cheese + sauce</p>
-</div>
-
-</div>
-
-<!-- MENU -->
-<div class="section" id="menu">
-<h2>🍔 Burgers</h2>
-
-<div class="card">
-<span class="price">€10.00</span>
-House Smashed Burger
-</div>
-
-<div class="card">
-<span class="price">€13.00</span>
-Double Smash Burger
-</div>
-
-<h2>🌯 Wraps</h2>
-
-<div class="card">
-<span class="price">€9.00</span>
-Classic Kebab Wrap
-</div>
-
-<div class="card">
-<span class="price">€10.00</span>
-Spicy Mix Wrap
-</div>
-
-<h2>🍕 Pizza</h2>
-
-<div class="card">
-<span class="price">€12.00</span>
-Margherita
-</div>
-
-<div class="card">
-<span class="price">€14.00</span>
-Pepperoni
-</div>
-
-<h2>🥤 Drinks</h2>
-
-<div class="card">
-<span class="price">€4.50</span>
-Golden Mint Lemonade
-</div>
-
-<div class="card">
-<span class="price">€2.50</span>
-Coca-Cola / Fanta
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+<h4>Double Burger</h4>
+<p>Double beef, extra cheese</p>
+<p class="price">€13</p>
 </div>
 
 </div>
 
-<!-- CONTACT -->
-<div class="section">
-<h2>📍 Contact</h2>
+<!-- WRAPS -->
+<div class="menu-category">
+<h3>Wraps</h3>
 
-<div class="card">
-📍 Albert I Promenade 9, Oostende
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1604908176997-431a57c7c10f">
+<h4>Chicken Wrap</h4>
+<p>Crispy chicken & veggies</p>
+<p class="price">€9</p>
 </div>
 
-<div class="card">
-📞 0490 39 61 81
-</div>
-
-<div class="card">
-🕒 11:00 - 22:00
-</div>
-
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1625944525533-473f1e6bb4f0">
+<h4>Veggie Wrap</h4>
+<p>Fresh vegetables</p>
+<p class="price">€10</p>
 </div>
 
 </div>
 
-<script>
-function scrollToMenu() {
-  document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
-}
-</script>
+<!-- PIZZA -->
+<div class="menu-category">
+<h3>Pizza</h3>
+
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591">
+<h4>Margherita</h4>
+<p>Classic cheese</p>
+<p class="price">€12</p>
+</div>
+
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1548365328-9f547fb0953d">
+<h4>Pepperoni</h4>
+<p>Pepperoni & cheese</p>
+<p class="price">€15</p>
+</div>
+
+</div>
+
+<!-- SIDES -->
+<div class="menu-category">
+<h3>Sides</h3>
+
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+<h4>Fries</h4>
+<p>Classic fries</p>
+<p class="price">€3</p>
+</div>
+
+<div class="menu-item">
+<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+<h4>Nuggets</h4>
+<p>Chicken nuggets</p>
+<p class="price">€6</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+<p>Oostende | +32 490 39 61 81</p>
+</footer>
 
 </body>
 </html>
