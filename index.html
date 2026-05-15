@@ -1,667 +1,221 @@
-import React, { useMemo, useState } from "react";
-import { ShoppingCart, Flame, MapPin, Clock, Phone, CreditCard, Banknote, Star, CheckCircle2, Truck } from "lucide-react";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grill Time Oostende</title>
 
-const menuItems = [
-  {
-    id: 1,
-    name: "Signature Pita Grill",
-    price: 11.5,
-    category: "Pita & Durum",
-    description: "Warm pita filled with grilled meat, fresh salad and house sauce.",
-    image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop",
-    popular: true,
-  },
-  {
-    id: 2,
-    name: "Golden Durum Wrap",
-    price: 11.5,
-    category: "Pita & Durum",
-    description: "Soft durum wrap with juicy grilled meat, fries, salad and sauce.",
-    image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 3,
-    name: "Doner Box Deluxe",
-    price: 16,
-    category: "Boxes",
-    description: "Crispy fries, doner meat, salad and sauce in a loaded box.",
-    image: "https://images.unsplash.com/photo-1639024471283-03518883512d?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 4,
-    name: "Classic Doner Plate",
-    price: 18,
-    category: "Schotels",
-    description: "Doner meat served with fries, salad and sauce.",
-    image: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 5,
-    name: "Loaded Kapsalon Melt",
-    price: 16,
-    category: "Boxes",
-    description: "Fries, doner, melted cheese, fresh salad and sauce.",
-    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=1200&auto=format&fit=crop",
-    popular: true,
-  },
-  {
-    id: 6,
-    name: "Chef’s Grill Mix Plate",
-    price: 29,
-    category: "Schotels",
-    description: "Chef’s selection of grilled meats with fries, salad and house sides.",
-    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop",
-    popular: true,
-  },
-  {
-    id: 7,
-    name: "Beach Box Oostende",
-    price: 19,
-    category: "Boxes",
-    description: "Durum pieces, fries, fresh salad and extras — perfect near the beach.",
-    image: "https://images.unsplash.com/photo-1562967916-eb82221dfb92?q=80&w=1200&auto=format&fit=crop",
-    popular: true,
-  },
-  {
-    id: 8,
-    name: "Crispy Nuggets",
-    price: 6,
-    category: "Snacks",
-    description: "Golden crispy chicken nuggets.",
-    image: "https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 9,
-    name: "Belgian Frikandel",
-    price: 4,
-    category: "Snacks",
-    description: "Classic fried frikandel snack.",
-    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 10,
-    name: "Crispy Chicken Wings",
-    price: 6,
-    category: "Snacks",
-    description: "Crunchy chicken wings with sauce option.",
-    image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 11,
-    name: "Homemade Grill Burger",
-    price: 13,
-    category: "Burgers",
-    description: "Homemade burger with grilled meat, salad and house sauce.",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop",
-    popular: true,
-  },
-  {
-    id: 12,
-    name: "Cheese Grill Burger",
-    price: 14,
-    category: "Burgers",
-    description: "Homemade burger with melted cheese and premium sauce.",
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 13,
-    name: "Pizza Tonno",
-    price: null,
-    category: "Pizza",
-    description: "Tuna pizza with onion and rich tomato base.",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 14,
-    name: "Pizza Hawaai",
-    price: null,
-    category: "Pizza",
-    description: "Sweet pineapple, ham-style topping and melted cheese.",
-    image: "https://images.unsplash.com/photo-1601924582975-7fb9465d1e95?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 15,
-    name: "Loaded Doner Pizza",
-    price: null,
-    category: "Pizza",
-    description: "Pizza topped with doner meat, cheese and house sauce finish.",
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1200&auto=format&fit=crop",
-    popular: true,
-  },
-  {
-    id: 16,
-    name: "Pizza Salami",
-    price: null,
-    category: "Pizza",
-    description: "Classic salami pizza with mozzarella and tomato sauce.",
-    image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 17,
-    name: "Pizza Scampi Deluxe",
-    price: null,
-    category: "Pizza",
-    description: "Premium scampi pizza with garlic touch and melted cheese.",
-    image: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=1200&auto=format&fit=crop",
-    popular: true,
-  },
-  {
-    id: 18,
-    name: "Pizza Veggie Fresh",
-    price: null,
-    category: "Pizza",
-    description: "Vegetable pizza with fresh toppings and mozzarella.",
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 19,
-    name: "Coca-Cola 330 ml",
-    price: 3,
-    category: "Drinks",
-    description: "Cold Coca-Cola can.",
-    image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 20,
-    name: "Fanta 330 ml",
-    price: 3,
-    category: "Drinks",
-    description: "Cold Fanta can.",
-    image: "https://images.unsplash.com/photo-1624517452488-04869289c4ca?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 21,
-    name: "Water",
-    price: 2.7,
-    category: "Drinks",
-    description: "Still water bottle.",
-    image: "https://images.unsplash.com/photo-1616118132534-381148898bb4?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 22,
-    name: "Ice Tea 330 ml",
-    price: 3,
-    category: "Drinks",
-    description: "Cold Ice Tea can.",
-    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-  {
-    id: 23,
-    name: "Ice Tea Peach 330 ml",
-    price: 3,
-    category: "Drinks",
-    description: "Cold peach Ice Tea can.",
-    image: "https://images.unsplash.com/photo-1497534446932-c925b458314e?q=80&w=1200&auto=format&fit=crop",
-    popular: false,
-  },
-];
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
 
-const categories = ["All", "Pita & Durum", "Boxes", "Schotels", "Pizza", "Burgers", "Snacks", "Drinks"];
-const deliveryFee = 3.5;
+    body{
+      font-family:Arial,sans-serif;
+      background:#0d0d0d;
+      color:white;
+    }
 
-function euro(value) {
-  if (value === null || value === undefined) return "Prijs volgt";
-  return new Intl.NumberFormat("nl-BE", {
-    style: "currency",
-    currency: "EUR",
-  }).format(value);
-}).format(value);
-}
+    header{
+      padding:30px;
+      text-align:center;
+      background:#111;
+      border-bottom:1px solid #333;
+    }
 
-export default function GrillRestaurantWebsite() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [cart, setCart] = useState([]);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState(false);
-  const [checkout, setCheckout] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    postalCode: "8400",
-    notes: "",
-    paymentMethod: "online",
-  });
+    header h1{
+      color:#f4b342;
+      font-size:42px;
+    }
 
-  const filteredItems = useMemo(() => {
-    if (selectedCategory === "All") return menuItems;
-    return menuItems.filter((item) => item.category === selectedCategory);
-  }, [selectedCategory]);
+    header p{
+      margin-top:10px;
+      color:#ccc;
+    }
 
-  const addToCart = (item) => {
-    setCart((prev) => {
-      const existing = prev.find((cartItem) => cartItem.id === item.id);
-      if (existing) {
-        return prev.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
-    });
-  };
+    .hero{
+      padding:60px 20px;
+      text-align:center;
+      background:linear-gradient(to bottom,#1b1207,#0d0d0d);
+    }
 
-  const updateQuantity = (id, delta) => {
-    setCart((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, quantity: item.quantity + delta } : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
+    .hero h2{
+      font-size:42px;
+      max-width:800px;
+      margin:auto;
+    }
 
-  const subtotal = useMemo(
-    () => cart.reduce((sum, item) => sum + (item.price || 0) * item.quantityuantity, 0),
-    [cart]
-  );
-  const total = subtotal > 0 ? subtotal + deliveryFee : 0;
-  const cartCount = useMemo(
-    () => cart.reduce((sum, item) => sum + item.quantity, 0),
-    [cart]
-  );
+    .hero p{
+      margin-top:20px;
+      color:#ccc;
+      max-width:700px;
+      margin-left:auto;
+      margin-right:auto;
+    }
 
-  const submitOrder = (e) => {
-    e.preventDefault();
-    setOrderPlaced(true);
-    setCart([]);
-    setCheckoutOpen(false);
-  };
+    .menu-section{
+      max-width:1200px;
+      margin:auto;
+      padding:40px 20px;
+    }
 
-  return (
-    <div className="min-h-screen bg-neutral-950 text-white">
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-red-500/10 to-transparent" />
-        <div className="relative mx-auto max-w-7xl px-6 py-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <div className="mb-3 flex items-center gap-2">
-                <Badge className="rounded-full bg-orange-500/20 px-3 py-1 text-orange-200 hover:bg-orange-500/20">
-                  Oostende Grill
-                </Badge>
-                <Badge variant="outline" className="rounded-full border-white/20 text-white">
-                  Online bestellen
-                </Badge>
-              </div>
-              <h1 className="max-w-3xl text-4xl font-bold tracking-tight md:text-6xl">
-                Charcoal grill taste, delivered hot in Oostende.
-              </h1>
-              <p className="mt-4 max-w-2xl text-base text-white/75 md:text-lg">
-                Build your order online, pay securely online or choose cash on delivery, and enjoy fresh grilled meals at home.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3 text-sm text-white/80">
-                <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                  <MapPin className="h-4 w-4" /> Oostende, Belgium
-                </div>
-                <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                  <Clock className="h-4 w-4" /> Open daily 17:00 - 23:00
-                </div>
-                <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
-                  <Truck className="h-4 w-4" /> Home delivery available
-                </div>
-              </div>
-            </div>
+    .category-title{
+      color:#f4b342;
+      margin:40px 0 20px;
+      font-size:30px;
+    }
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="w-full max-w-md rounded-3xl border border-orange-400/20 bg-white/5 p-5 shadow-2xl backdrop-blur"
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-white/60">Fast checkout</p>
-                  <h2 className="text-2xl font-semibold">Your order</h2>
-                </div>
-                <div className="rounded-2xl bg-orange-500/15 p-3">
-                  <ShoppingCart className="h-6 w-6 text-orange-300" />
-                </div>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-white/70">Items</span>
-                  <span>{cartCount}</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-white/70">Subtotal</span>
-                  <span>{euro(subtotal)}</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-white/70">Delivery</span>
-                  <span>{subtotal > 0 ? euro(deliveryFee) : euro(0)}</span>
-                </div>
-                <Separator className="bg-white/10" />
-                <div className="flex items-center justify-between text-lg font-semibold">
-                  <span>Total</span>
-                  <span>{euro(total)}</span>
-                </div>
-              </div>
-              <Dialog open={checkoutOpen} onOpenChange={setCheckoutOpen}>
-                <DialogTrigger asChild>
-                  <Button className="mt-5 w-full rounded-2xl bg-orange-500 text-base hover:bg-orange-400" disabled={cart.length === 0}>
-                    Proceed to checkout
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-h-[90vh] overflow-y-auto rounded-3xl border-none bg-white text-neutral-900 sm:max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle className="text-2xl">Complete your order</DialogTitle>
-                  </DialogHeader>
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
 
-                  <form className="grid gap-6 md:grid-cols-[1.2fr_0.8fr]" onSubmit={submitOrder}>
-                    <div className="space-y-4">
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <div>
-                          <label className="mb-2 block text-sm font-medium">Name</label>
-                          <Input
-                            required
-                            value={checkout.name}
-                            onChange={(e) => setCheckout({ ...checkout, name: e.target.value })}
-                            placeholder="Your full name"
-                            className="rounded-2xl"
-                          />
-                        </div>
-                        <div>
-                          <label className="mb-2 block text-sm font-medium">Phone</label>
-                          <Input
-                            required
-                            value={checkout.phone}
-                            onChange={(e) => setCheckout({ ...checkout, phone: e.target.value })}
-                            placeholder="Your phone number"
-                            className="rounded-2xl"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="mb-2 block text-sm font-medium">Delivery address</label>
-                        <Input
-                          required
-                          value={checkout.address}
-                          onChange={(e) => setCheckout({ ...checkout, address: e.target.value })}
-                          placeholder="Street and house number"
-                          className="rounded-2xl"
-                        />
-                      </div>
-                      <div>
-                        <label className="mb-2 block text-sm font-medium">Postal code</label>
-                        <Input
-                          required
-                          value={checkout.postalCode}
-                          onChange={(e) => setCheckout({ ...checkout, postalCode: e.target.value })}
-                          placeholder="8400"
-                          className="rounded-2xl"
-                        />
-                      </div>
-                      <div>
-                        <label className="mb-2 block text-sm font-medium">Order notes</label>
-                        <Textarea
-                          value={checkout.notes}
-                          onChange={(e) => setCheckout({ ...checkout, notes: e.target.value })}
-                          placeholder="Extra sauce, no onions, ring the bell..."
-                          className="min-h-[110px] rounded-2xl"
-                        />
-                      </div>
+    .card{
+      background:#161616;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid #2c2c2c;
+    }
 
-                      <div>
-                        <label className="mb-3 block text-sm font-medium">Payment method</label>
-                        <div className="grid gap-3 md:grid-cols-2">
-                          <button
-                            type="button"
-                            onClick={() => setCheckout({ ...checkout, paymentMethod: "online" })}
-                            className={`rounded-2xl border p-4 text-left transition ${checkout.paymentMethod === "online" ? "border-orange-500 bg-orange-50" : "border-neutral-200 bg-white"}`}
-                          >
-                            <div className="flex items-center gap-3">
-                              <CreditCard className="h-5 w-5" />
-                              <div>
-                                <p className="font-semibold">Pay online</p>
-                                <p className="text-sm text-neutral-500">Bancontact, card, Apple Pay, Google Pay</p>
-                              </div>
-                            </div>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setCheckout({ ...checkout, paymentMethod: "cash" })}
-                            className={`rounded-2xl border p-4 text-left transition ${checkout.paymentMethod === "cash" ? "border-orange-500 bg-orange-50" : "border-neutral-200 bg-white"}`}
-                          >
-                            <div className="flex items-center gap-3">
-                              <Banknote className="h-5 w-5" />
-                              <div>
-                                <p className="font-semibold">Cash on delivery</p>
-                                <p className="text-sm text-neutral-500">Pay when the driver arrives</p>
-                              </div>
-                            </div>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+    .card img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+    }
 
-                    <Card className="rounded-3xl border-neutral-200 shadow-sm">
-                      <CardContent className="p-5">
-                        <h3 className="text-lg font-semibold">Order summary</h3>
-                        <div className="mt-4 space-y-3">
-                          {cart.map((item) => (
-                            <div key={item.id} className="flex items-center justify-between gap-3 rounded-2xl bg-neutral-50 p-3">
-                              <div>
-                                <p className="font-medium">{item.name}</p>
-                                <p className="text-sm text-neutral-500">Qty {item.quantity}</p>
-                              </div>
-                              <p className="font-medium">{euro((item.price || 0) * item.quantity)}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <Separator className="my-4" />
-                        <div className="space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span className="text-neutral-500">Subtotal</span>
-                            <span>{euro(subtotal)}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-neutral-500">Delivery</span>
-                            <span>{euro(deliveryFee)}</span>
-                          </div>
-                          <div className="flex justify-between text-base font-semibold">
-                            <span>Total</span>
-                            <span>{euro(total)}</span>
-                          </div>
-                        </div>
-                        <Button type="submit" className="mt-5 w-full rounded-2xl bg-neutral-900 hover:bg-neutral-800">
-                          {checkout.paymentMethod === "online" ? "Place order and pay online" : "Place order - cash on delivery"}
-                        </Button>
-                        <p className="mt-3 text-xs text-neutral-500">
-                          Demo checkout flow. Connect Stripe, Mollie, or another provider to accept real online payments.
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </form>
-                </DialogContent>
-              </Dialog>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+    .card-content{
+      padding:18px;
+    }
 
-      {orderPlaced && (
-        <div className="mx-auto mt-6 max-w-7xl px-6">
-          <div className="flex items-center gap-3 rounded-3xl border border-green-500/20 bg-green-500/10 p-4 text-green-100">
-            <CheckCircle2 className="h-5 w-5" />
-            <p>
-              Your demo order was placed successfully. In production, this should send the order to your restaurant dashboard, WhatsApp, email, or POS system.
-            </p>
-          </div>
-        </div>
-      )}
+    .card h3{
+      font-size:22px;
+      margin-bottom:8px;
+    }
 
-      <section className="mx-auto max-w-7xl px-6 py-12">
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="mb-2 text-sm uppercase tracking-[0.25em] text-orange-300">Menu</p>
-            <h2 className="text-3xl font-bold md:text-4xl">Popular dishes and favourites</h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
-                className={`rounded-full ${selectedCategory === category ? "bg-orange-500 hover:bg-orange-400" : "border-white/15 bg-white/5 text-white hover:bg-white/10"}`}
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
+    .card p{
+      color:#bbb;
+      font-size:14px;
+      min-height:40px;
+    }
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {filteredItems.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.04 }}
-            >
-              <Card className="h-full overflow-hidden rounded-3xl border-white/10 bg-white/5 text-white shadow-xl">
-                <div className="relative h-44 w-full overflow-hidden">
-                  <img src={item.image} alt={item.name} className="h-full w-full object-cover transition duration-500 hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-xs text-white backdrop-blur">
-                    {item.category}
-                  </div>
-                </div>
-                <CardContent className="flex h-full flex-col p-5">
-                  <div className="mb-4 flex items-start justify-between gap-3">
-                    <div className="rounded-2xl bg-orange-500/15 p-3">
-                      <Flame className="h-6 w-6 text-orange-300" />
-                    </div>
-                    {item.popular && (
-                      <Badge className="rounded-full bg-white text-neutral-900 hover:bg-white">
-                        <Star className="mr-1 h-3.5 w-3.5" /> Popular
-                      </Badge>
-                    )}
-                  </div>
-                  <h3 className="mt-1 text-xl font-semibold">{item.name}</h3>
-                  <p className="mt-2 flex-1 text-sm text-white/70">{item.description}</p>
-                  <div className="mt-5 flex items-center justify-between gap-3">
-                    <span className="text-lg font-bold">{euro(item.price)}</span>
-                    <Button onClick={() => addToCart(item)} className="rounded-2xl bg-orange-500 hover:bg-orange-400">
-                      Add to cart
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+    .price{
+      margin-top:14px;
+      color:#f4b342;
+      font-size:22px;
+      font-weight:bold;
+    }
 
-      <section className="mx-auto max-w-7xl px-6 pb-14">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <Card className="rounded-3xl border-white/10 bg-white/5 text-white">
-            <CardContent className="p-6">
-              <h3 className="text-2xl font-semibold">Cart</h3>
-              <p className="mt-2 text-sm text-white/65">Customers can review their items before checkout.</p>
-              <div className="mt-5 space-y-3">
-                {cart.length === 0 && (
-                  <div className="rounded-2xl border border-dashed border-white/15 p-6 text-sm text-white/50">
-                    Your cart is empty. Add some delicious grilled dishes.
-                  </div>
-                )}
-                {cart.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 p-4">
-                    <div>
-                      <p className="font-medium">{item.name}</p>
-                      <p className="text-sm text-white/60">{euro(item.price)} each</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Button variant="outline" onClick={() => updateQuantity(item.id, -1)} className="rounded-xl border-white/15 bg-white/5 text-white hover:bg-white/10">-</Button>
-                      <span className="w-6 text-center">{item.quantity}</span>
-                      <Button variant="outline" onClick={() => updateQuantity(item.id, 1)} className="rounded-xl border-white/15 bg-white/5 text-white hover:bg-white/10">+</Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+    footer{
+      padding:40px 20px;
+      text-align:center;
+      border-top:1px solid #333;
+      color:#999;
+    }
+  </style>
+</head>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            <Card className="rounded-3xl border-white/10 bg-white/5 text-white">
-              <CardContent className="p-6">
-                <Clock className="mb-4 h-7 w-7 text-orange-300" />
-                <h3 className="text-lg font-semibold">Fast delivery</h3>
-                <p className="mt-2 text-sm text-white/70">Deliver to homes in Oostende with clear delivery times and minimum order rules.</p>
-              </CardContent>
-            </Card>
-            <Card className="rounded-3xl border-white/10 bg-white/5 text-white">
-              <CardContent className="p-6">
-                <CreditCard className="mb-4 h-7 w-7 text-orange-300" />
-                <h3 className="text-lg font-semibold">Flexible payment</h3>
-                <p className="mt-2 text-sm text-white/70">Support online card and Bancontact payments, plus cash when delivering to the customer.</p>
-              </CardContent>
-            </Card>
-            <Card className="rounded-3xl border-white/10 bg-white/5 text-white">
-              <CardContent className="p-6">
-                <Phone className="mb-4 h-7 w-7 text-orange-300" />
-                <h3 className="text-lg font-semibold">Direct contact</h3>
-                <p className="mt-2 text-sm text-white/70">Show your phone number, opening hours, and delivery area for quick customer trust.</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+<body>
 
-      <footer className="border-t border-white/10 bg-black/30">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 md:grid-cols-3">
-          <div>
-            <h3 className="text-xl font-semibold">Oostende Grill</h3>
-            <p className="mt-3 text-sm text-white/65">
-              Fresh grilled food, takeaway and home delivery from the heart of Oostende.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-medium">Contact</h4>
-            <div className="mt-3 space-y-2 text-sm text-white/70">
-              <p>Adres: Voeg je restaurantadres toe</p>
-              <p>Telefoon: Voeg je telefoonnummer toe</p>
-              <p>Email: info@oostendegrill.be</p>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-medium">Opening hours</h4>
-            <div className="mt-3 space-y-2 text-sm text-white/70">
-              <p>Monday - Sunday: 17:00 - 23:00</p>
-              <p>Delivery in Oostende and nearby areas</p>
-            </div>
-          </div>
-        </div>
-      </footer>
+<header>
+  <h1>Grill Time</h1>
+  <p>Grill • Pizza • Pita • Delivery in Oostende</p>
+</header>
+
+<section class="hero">
+  <h2>Premium grill taste delivered warm to your home.</h2>
+  <p>Bestel online jouw favoriete pita, pizza, kapsalon, burger of grill schotel.</p>
+</section>
+
+<section class="menu-section">
+
+  <h2 class="category-title">Pita & Durum</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop">
+      <div class="card-content">
+        <h3>Signature Pita Grill</h3>
+        <p>Warme pita met vlees, salade en saus.</p>
+        <div class="price">€11,50</div>
+      </div>
     </div>
-  );
-}
 
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=1200&auto=format&fit=crop">
+      <div class="card-content">
+        <h3>Golden Durum Wrap</h3>
+        <p>Durum wrap met vlees, frieten en saus.</p>
+        <div class="price">€11,50</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="category-title">Boxes & Kapsalon</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1639024471283-03518883512d?q=80&w=1200&auto=format&fit=crop">
+      <div class="card-content">
+        <h3>Doner Box Deluxe</h3>
+        <p>Frieten, doner, salade en saus.</p>
+        <div class="price">€16</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=1200&auto=format&fit=crop">
+      <div class="card-content">
+        <h3>Loaded Kapsalon Melt</h3>
+        <p>Frieten, doner, kaas en salade.</p>
+        <div class="price">€16</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1562967916-eb82221dfb92?q=80&w=1200&auto=format&fit=crop">
+      <div class="card-content">
+        <h3>Beach Box Oostende</h3>
+        <p>Durum stukjes, frieten en salade.</p>
+        <div class="price">€19</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="category-title">Schotels</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=1200&auto=format&fit=crop">
+      <div class="card-content">
+        <h3>Classic Doner Plate</h3>
+        <p>Doner met frieten en salade.</p>
+        <div class="price">€18</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop">
+      <div class="card-content">
+        <h3>Chef’s Grill Mix</h3>
+        <p>Chef selectie van premium grill vlees.</p>
+        <div class="price">€29</div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
 
 <footer>
-<p>Albert I Promenade 9 - Oostende</p>
-<p>📞 +32 490 39 61 81</p>
+  Grill Time Oostende
 </footer>
 
 </body>
